@@ -12,7 +12,7 @@ module.exports = function(grunt) {
 	    }
 	  },
 	  jshint: {
-	    beforeconcat: ['src/**/*.js'],
+	    beforeconcat: ['js/**/*.js', 'Gruntfile.js'],
 	    afterconcat: ['dist/js/built.js']
 	  },
 	  copy: {
