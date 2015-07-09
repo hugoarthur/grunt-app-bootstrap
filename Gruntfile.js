@@ -52,7 +52,7 @@ module.exports = function(grunt) {
 				}
 			},
 			view: {
-			  	files: ['**/*.html', '!dist/**'],
+			  	files: ['**/*.html', 'img/*', '!dist/**'],
 			  	tasks: ['copy:main'],
 				options: {
 					livereload: true
