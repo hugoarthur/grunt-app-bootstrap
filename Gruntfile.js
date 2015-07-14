@@ -12,8 +12,8 @@ module.exports = function(grunt) {
 	    }
 	  },
 	  jshint: {
-	    beforeconcat: ['js/**/*.js', 'Gruntfile.js'],
-	    afterconcat: ['dist/js/built.js']
+	    beforeconcat: ['js/**/*.js', 'Gruntfile.js', 'app/**/*.js'],
+	    afterconcat: ['dist/js/built.js', 'dist/app/**/*.js']
 	  },
 	  copy: {
 		  main: {
@@ -23,23 +23,36 @@ module.exports = function(grunt) {
 		      {expand: true, src: ['img/**'], dest: 'dist/'}
 		    ],
 		  },
+		  controller: {
+		    files: [
+		      {expand: true, cwd:'app/js/controllers/', src: ['**'], dest: 'dist/js'}
+		    ],
+		  },
 		  bower: {
 		    files: [
 		      // includes files within path and its sub-directories 
 		      {expand: true, src: ['bower_components/**'], dest: 'dist/'}
 		    ],
-		  },
+		  }
 		},
 		watch: {
 			configFiles: {
 				files: [ 'Gruntfile.js'],
+				tasks: ['build'],
 				options: {
 					livereload: true
 				}
 			},
 		  	scripts: {
-			    files: ['js/*.js'],
-			    tasks: ['concat:js', 'jshint'],
+			    files: ['js/*.js', ],
+			    tasks: ['concat:js', 'jshint:afterconcat'],
+				options: {
+					livereload: true
+				}
+			},
+			controller: {
+			    files: ['app/**/*.js', ],
+			    tasks: ['copy:controller', 'jshint:afterconcat'],
 				options: {
 					livereload: true
 				}
@@ -84,8 +97,9 @@ module.exports = function(grunt) {
 	grunt.registerTask('build', function() {
 		grunt.task.run([
 			'concat',
-			'jshint',
-			'copy'
+			'copy',
+			'jshint:afterconcat'
+			
 	    ]);
 	});
 
