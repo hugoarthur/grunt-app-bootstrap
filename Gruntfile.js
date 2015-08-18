@@ -26,6 +26,11 @@ module.exports = function(grunt) {
 						filter: 'isFile'
 					}, {
 						expand: true,
+						cwd: 'app/view',
+						src: '**/*',
+						dest: 'dist/view'
+					}, {
+						expand: true,
 						src: ['img/**'],
 						dest: 'dist/'
 					}
